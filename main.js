@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require("path");
 const {
     exec
 } = require('child_process');
@@ -12,8 +13,8 @@ _.forEach(a => {
         glob.sync(`${appdata}\\${a}\\app-*\\modules\\discord_desktop_core-*\\discord_desktop_core`).map(async a => {
 
             if (!fs.readdirSync(a).includes('index.js')) return
-            let index = fs.readFileSync(a + '\\index.js', 'utf-8')
-            let filename = (a + "\\index.js")
+      
+            let filename = path.join(a, "index.js");
             exec('tasklist', (e, t, r) => {
 
                 if (t.includes(a.split('/')[5] + '.exe')) {
@@ -24,7 +25,7 @@ _.forEach(a => {
                 }
             })
 
-            if (index.toString() !== "module.exports = require('./core.asar');") {
+            if (fs.readFileSync(filename, 'utf-8').toString() !== "module.exports = require('./core.asar');") {
                 console.info(`\x1b[31mVous avez été token grabb dans ${a.split('/')[5]} !\x1b[0m`)
                 fs.writeFile(filename, "module.exports = require('./core.asar');", (err) => {
                     if (err) throw err
@@ -36,7 +37,25 @@ _.forEach(a => {
                     })
 
                 })
-            } else console.log(`\x1b[32mL'instance ${a.split('/')[5]} est clean!\x1b[0m`)
+            } else if(fs.existsSync(path.join(a, "package.json"))) {
+                const file = require(path.join(a, "package.json"));
+                if(file["main"] && file["main"] != "index.js") {
+                    console.info(`\x1b[31mVous avez été token grabb dans ${file["main"]} !\x1b[0m`);
+                    try {
+                        fs.unlinkSync(path.join(a, "package.json"))
+                    } catch(e) {
+                        console.warn(e);
+                    }
+                    file["main"] = "index.js";
+                    fs.writeFile(path.join(a, "package.json"), JSON.stringify(file, null, 4), (err) => {
+                        if (err) throw err    
+                    })
+                } else {
+                    console.log(`\x1b[32mL'instance ${a.split('/')[5]} est clean!\x1b[0m`)
+                }
+            } else {
+                console.log(`\x1b[32mL'instance ${a.split('/')[5]} est clean!\x1b[0m`)
+            }
         })
     
 })
