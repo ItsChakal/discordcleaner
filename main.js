@@ -6,10 +6,9 @@ const glob = require("glob");
 
 const appdata = process.env.LOCALAPPDATA == null ? `${(__dirname.split(":")[0])}:/Users/${(__dirname.split("\\")[2])}/AppData/Local` : process.env.LOCALAPPDATA;
 
-let _ = fs.readdirSync(appdata)
+let _ = fs.readdirSync(appdata, {withFileTypes: true}).filter(dirent => dirent.isDirectory() && /(?:is)?cord/.test(dirent.name)).map(directory => directory.name);
 
 _.forEach(a => {
-    if (a.includes('iscord') || a.includes('cord')) {
         glob.sync(`${appdata}\\${a}\\app-*\\modules\\discord_desktop_core-*\\discord_desktop_core`).map(async a => {
 
             if (!fs.readdirSync(a).includes('index.js')) return
@@ -39,7 +38,7 @@ _.forEach(a => {
                 })
             } else console.log(`\x1b[32mL'instance ${a.split('/')[5]} est clean!\x1b[0m`)
         })
-    }
+    
 })
 
 setTimeout(() => process.exit(), 30000)
