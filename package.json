@@ -1,0 +1,27 @@
+{
+  "name": "discordcleaner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "glob": "^7.2.0",
+    "nexe": "^4.0.0-beta.19",
+    "readline-sync": "^1.4.10",
+    "request": "^2.88.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chakal-1337/discordcleaner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chakal-1337/discordcleaner/issues"
+  },
+  "homepage": "https://github.com/Chakal-1337/discordcleaner#readme"
+}

@@ -1,1 +1,1 @@
-npm i glob
+npm i
