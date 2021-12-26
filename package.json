@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
+    "build": "nexe main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
