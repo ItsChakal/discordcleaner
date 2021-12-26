@@ -9,7 +9,7 @@
 `yarn add`, `npm install` ou lancer le fichier `Module install.bat`
 
 
-[2] -*Pour lancer une analyse et nettoyer vos clients il faudrait exécuter la commande:*
+[2] -*Pour lancer une analyse et nettoyer vos clients il faudra exécuter la commande:*
 `yarn run start`, `npm run start` ou lancer le fichier `start.bat`<br/>
 
 [3] -*Pour compiler l'application vous pouvez exécuter la commande* `yarn run build` *ou* `npm run build`
